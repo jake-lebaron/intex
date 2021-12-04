@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div>
+  <p>This is the search prescribers page</p>
+  <p>Prescriber (by name, gender, credentials, location, specialty)</p>
+  <div>
+    <p>This is the search drug page</p>
+  </div>
+    <button type="submit">Search</button>
+    <a href="{% url 'predetails' %}"
+      ><button type="button" class="btn btn-primary">View Details</button></a
+    >
+  </form>
+  <a href="{% url 'drugdetails' %}"
+  ><button type="button" class="btn btn-primary">View Details</button></a>
+</div>
+{% endblock %}

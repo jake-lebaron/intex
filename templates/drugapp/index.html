@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div>
+  <h1>This is the landing page</h1>
+  <a href="{% url 'dashboard' %}"
+    ><button type="button" class="btn btn-primary">
+      Continue to dashboard
+    </button></a
+  >
+</div>
+{% endblock %}

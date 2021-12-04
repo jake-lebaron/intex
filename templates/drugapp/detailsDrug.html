@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div>
+  <h1>This is the drug details page</h1>
+  <a href="{% url 'predetails' %}"
+    ><button type="button" class="btn btn-primary">
+      View Prescriber Details
+    </button></a
+  >
+</div>
+<div>
+  {% for drug in key %}
+  <p>{{drug.drugname}}</p>
+  {% endfor %}
+</div>
+{% endblock %}

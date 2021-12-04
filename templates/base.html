@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Opioid Portal</title>
+    <!-- <link href="{% static 'css/mycss.css' %}" rel="stylesheet" /> -->
+    <a href="{% url 'dashboard' %}"
+      ><button type="button" class="btn btn-primary">Dashboard</button></a
+    >
+    <a href="{% url 'manage' %}"
+      ><button type="button" class="btn btn-primary">
+        Manage Prescribers
+      </button></a
+    >
+    <a href="{% url 'drugsearch' %}"
+      ><button type="button" class="btn btn-primary">
+        Search All Drugs
+      </button></a
+    >
+    <a href="{% url 'drugdetails' %}"
+      ><button type="button" class="btn btn-primary">Drug Details</button></a
+    >
+    <a href="{% url 'predetails' %}"
+      ><button type="button" class="btn btn-primary">
+        Prescriber Details
+      </button></a
+    >
+    <a href="{% url 'presearch' %}"
+      ><button type="button" class="btn btn-primary">
+        Search All Prescribers
+      </button></a
+    >
+    <a href="{% url 'analyses' %}"
+      ><button type="button" class="btn btn-primary">View Analses</button></a
+    >
+  </head>
+  <body>
+    <h1>This is the base heading</h1>
+    <br />
+    {% block content %} {% endblock %}
+    <footer>
+      <p>© 2021 - Intex</p>
+    </footer>
+  </body>
+</html>

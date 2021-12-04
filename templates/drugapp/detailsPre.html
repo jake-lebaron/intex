@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div>
+  <h1>This is the prescribers details page</h1>
+  <a href="{% url 'drugdetails' %}"
+    ><button type="button" class="btn btn-primary">View Drug Details</button></a
+  >
+</div>
+<div>
+  {% for prescriber in key %}
+  <p>{{prescriber.fullname}}</p>
+  {% endfor %}
+</div>
+{% endblock %}

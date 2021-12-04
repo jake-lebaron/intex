@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div>
+  <p>This is the search drug page</p>
+
+  <form name="form" method="get" action="{% url 'lookupdrug' %}">
+    <label for="drugname">Enter the drug name:</label>
+    <input type="text" name="drugname" id="drugname" />
+    <br /><br />
+    <label for="isopioid">Drug Type:</label>
+    <br /><br />
+
+    <input type="radio" id="isopioidtrue" name="isopioid" value="TRUE" />
+    <label for="isopioidtrue">Opioid</label><br />
+
+    <input type="radio" id="isopioidfalse" name="isopioid" value="FALSE" />
+    <label for="isopioidfalse">Nonopioid</label><br />
+
+    <br /><br />
+    <button type="submit">Search</button>
+  </form>
+
+  <div>
+    {% for drug in key %}
+    <p>{{drug.drugname}}</p>
+    {% endfor %}
+  </div>
+
+  <a href="{% url 'drugdetails' %}"
+    ><button type="button" class="btn btn-primary">View Details</button></a
+  >
+</div>
+{% endblock %}

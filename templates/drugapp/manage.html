@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div>
+  <p>This is the manage prescribers page</p>
+  <p>
+    Buttons here will go with all prescribers displayed and "edit" and "delete"
+    buttons will be associated with each prescriber
+  </p>
+  <a href="{% url 'add' %}"
+    ><button type="button" class="btn btn-primary">Add Prescriber</button></a
+  >
+</div>
+{% endblock %}

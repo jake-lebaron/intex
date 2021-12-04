@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div>
+  <p>This is the dashboard</p>
+  <p>
+    Stats, short "about" card that links to the about page via "keep
+    reading...", 2 graphs
+  </p>
+  <a href="{% url 'about' %}"
+    ><button type="button" class="btn btn-primary">Keep reading...</button></a
+  >
+</div>
+{% endblock %}
