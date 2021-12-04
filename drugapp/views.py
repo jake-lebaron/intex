@@ -62,18 +62,19 @@ def lookupDrugPageView(request) :
 
    sQuery = 'SELECT drugid, drugname, isopioid FROM pd_drugs WHERE'
 
-   if isopioid == 'TRUE' :
+   if isopioid == 'True' :
       sQuery += " isopioid = '" + isopioid + "'" 
 
    if (drugname != '') & (isopioid != '') :
       sQuery += " AND drugname LIKE '%%" + drugname + "%%'"
    
-   if (drugname != '') & (isopioid == 'FALSE') :
+   if (drugname != '') & (isopioid == 'False') :
       sQuery += " drugname LIKE '%%" + drugname + "%%'"
 
    sQuery += ' ORDER BY drugid, drugname, isopioid'
 
-   data = Drug.objects.raw(sQuery, [drugname], [isopioid])
+   print(sQuery)
+   data = Drug.objects.raw(sQuery)
 
    context = {
       "key" : data
