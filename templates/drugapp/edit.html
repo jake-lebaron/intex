@@ -1,0 +1,89 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<h1>This is the Edit</h1>
+<div>
+  <form name="npi" method="post" action="{% url 'updatePresc' %}">
+    {% csrf_token %}
+
+    <input type="hidden" id="npi" name="npi" value="{{record.npi}}" />
+    <!-- double check the value for this -->
+
+    <label for="fname">Enter the first name:</label>
+    <input type="text" name="fname" id="fname" value="{{record.fname}}" />
+    <br /><br />
+    <label for="lname">Enter the last name:</label>
+    <input type="text" name="lname" id="lname" value="{{record.lname}}" />
+    <br /><br />
+    <label for="credentials">Enter the credentials:</label>
+    <input
+      type="text"
+      name="credentials"
+      id="credentials"
+      value="{{record.credentials}}"
+    />
+    <br /><br />
+
+    <label for="state">Location:</label><br />
+    <select name="state">
+      <option value="{{record.stateabbrev}}">
+        Current Location: {{record.state}}
+      </option>
+      {% for state in state %}
+      <option value="{{state.stateabbrev }}">{{ state.state}}</option>
+      {% endfor %}
+    </select>
+    <br /><br />
+
+    <label for="specialty">Specialty:</label><br />
+    <select name="specialty">
+      <option value="">Current Specialty: {{record.specialty}}</option>
+      {% for x in our_specialties %}
+      <option value="{{x.specialty }}">{{ x.specialty}}</option>
+      {% endfor %}
+    </select>
+
+    <br /><br />
+    {% if record.gender == "M" %}
+    <label for="gender">Gender:</label><br />
+    <input type="radio" id="gendermale" name="gender" value="M" checked />
+    <label for="gendermale">Male</label><br />
+    <input type="radio" id="genderfemale" name="gender" value="F" />
+    <label for="genderfemale">Female</label><br />
+    {% else %}
+    <label for="gender">Gender:</label><br />
+    <input type="radio" id="gendermale" name="gender" value="M" />
+    <label for="gendermale">Male</label><br />
+    <input type="radio" id="genderfemale" name="gender" value="F" checked />
+    <label for="genderfemale">Female</label><br />
+    {% endif %}
+    <br /><br />
+
+    <label>Does the prescriber prescribe opioids?:</label><br />
+    {% if record.isopioidprescriber == "TRUE" %}
+    <input
+      type="radio"
+      id="TRUE"
+      name="isopioidprescriber"
+      value="TRUE"
+      checked
+    />
+    <label for="TRUE">Yes</label><br />
+    <input type="radio" id="FALSE" name="isopioidprescriber" value="FALSE" />
+    <label for="FALSE">No</label><br />
+    {% else %}
+    <input type="radio" id="TRUE" name="isopioidprescriber" value="FALSE" />
+    <label for="TRUE">Yes</label><br />
+    <input
+      type="radio"
+      id="FALSE"
+      name="isopioidprescriber"
+      value="FALSE"
+      checked
+    />
+    <label for="FALSE">No</label><br />
+    {% endif %}
+    <br /><br />
+
+    <button type="submit">Update</button>
+  </form>
+</div>
+{% endblock %}

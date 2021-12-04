@@ -8,5 +8,23 @@
   <a href="{% url 'add' %}"
     ><button type="button" class="btn btn-primary">Add Prescriber</button></a
   >
+  <br /><br />
+
+  <div class="container">
+    {% for presc in key %}
+    <p>
+      <a href="{% url 'edit' npi=presc.npi%}"
+        ><button type="button" class="btn btn-primary">Edit</button></a
+      >
+      {% comment %}
+      <a
+        class="btn btn-primary"
+        href="{% url 'addCustomerDestination' cust_id=customer.id %}"
+        >Add Destination</a
+      >
+      {% endcomment %} {{ presc.fullname }}
+    </p>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

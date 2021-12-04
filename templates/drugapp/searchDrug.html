@@ -1,10 +1,8 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div>
-  <p>This is the search drug page</p>
-
   <form name="form" method="get" action="{% url 'lookupdrug' %}">
     <label for="drugname">Enter the drug name:</label>
-    <input type="text" name="drugname" id="drugname" />
+    <input type="text" name="drugname" id="drugname" autofocus />
     <br /><br />
     <label for="isopioid">Drug Type:</label>
     <br /><br />

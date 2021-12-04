@@ -1,11 +1,9 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div>
-  <p>This is the search prescriber page</p>
-  <p>Prescriber (by name, gender, credentials, location, specialty)</p>
-  <div></div>
+  <h1>This is the search prescriber page</h1>
   <form name="form" method="get" action="{% url 'lookuppresc' %}">
     <label for="fname">Enter the first name:</label>
-    <input type="text" name="fname" id="fname" />
+    <input type="text" name="fname" id="fname" autofocus />
     <br /><br />
     <label for="lname">Enter the last name:</label>
     <input type="text" name="lname" id="lname" />
@@ -14,14 +12,18 @@
     <input type="text" name="credentials" id="credentials" />
     <br /><br />
 
+    <label for="state">Location:</label><br />
     <select name="state">
+      <option value="">Select an option ----</option>
       {% for state in state %}
       <option value="{{state.stateabbrev }}">{{ state.state}}</option>
       {% endfor %}
     </select>
     <br /><br />
 
+    <label for="specialty">Specialty:</label><br />
     <select name="specialty">
+      <option value="">Select an option ----</option>
       {% for x in our_specialties %}
       <option value="{{x.specialty }}">{{ x.specialty}}</option>
       {% endfor %}
@@ -33,10 +35,34 @@
     <label for="gendermale">Male</label><br />
     <input type="radio" id="genderfemale" name="gender" value="F" />
     <label for="genderfemale">Female</label><br />
+    <br />
+
+    <label for="isopioidpresc">Opioid Prescriber:</label><br />
+    <input
+      type="radio"
+      id="isopioidpresctrue"
+      name="isopioidpresc"
+      value="TRUE"
+    />
+    <label for="isopioidpresctrue">True</label><br />
+    <input
+      type="radio"
+      id="isopioidprescfalse"
+      name="isopioidpresc"
+      value="FALSE"
+    />
+    <label for="genderfisopioidprescfalseemale">False</label><br />
 
     <br /><br />
     <button type="submit">Search</button>
   </form>
+
+  <div>
+    {% for prescriber in key %}
+    <p>{{prescriber.fullname}}</p>
+    {% endfor %}
+  </div>
+
   <a href="{% url 'drugdetails' %}"
     ><button type="button" class="btn btn-primary">View Details</button></a
   >

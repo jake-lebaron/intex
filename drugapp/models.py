@@ -293,7 +293,7 @@ class Prescriber(models.Model):
 
     @property
     def fullname(self):
-        return '%s %s, %s' % (self.fname, self.lname, self.credentials)
+        return '%s %s, %s, Opioid Prescriber: %s (Gender (%s)): %s, %s' % (self.fname, self.lname, self.credentials, self.isopioidprescriber, self.gender, self.specialty, self.state)
 
 class Triple(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
