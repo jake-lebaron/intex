@@ -57,19 +57,25 @@ def searchDrugPageView(request) :
    return render(request, 'drugapp/searchDrug.html', context)
 
 def lookupDrugPageView(request) :
-   drugname = request.GET['drugname']
-   isopioid = request.GET['isopioid']
+   print("Now looking at drug page")
+   drugname = request.GET['drugname'].upper()
+   isopioid = None
+   try :
+      isopioid = request.GET['isopioid']
+   except :
+      isopioid = ""
 
+   print("this is inside the isopiod variable" + "'" + isopioid + "'")
    sQuery = 'SELECT drugid, drugname, isopioid FROM pd_drugs WHERE'
 
-   if isopioid == 'True' :
-      sQuery += " isopioid = '" + isopioid + "'" 
-
    if (drugname != '') & (isopioid != '') :
-      sQuery += " AND drugname LIKE '%%" + drugname + "%%'"
+      sQuery += " drugname LIKE '%%" + drugname + "%%'" + " AND isopioid = '" + isopioid + "'" 
    
-   if (drugname != '') & (isopioid == 'False') :
+   elif (drugname != '') & (isopioid == '') :
       sQuery += " drugname LIKE '%%" + drugname + "%%'"
+
+   elif (drugname == '') & (isopioid != '') :
+      sQuery += " isopioid = '" + isopioid + "'" 
 
    sQuery += ' ORDER BY drugid, drugname, isopioid'
 
