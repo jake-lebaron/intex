@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from drugapp.models import Drug, Prescriber
+from drugapp.models import Drug, Prescriber, State
  
 # Create your views here.
 def indexPageView(request) :
@@ -57,6 +57,12 @@ def searchDrugPageView(request) :
    return render(request, 'drugapp/searchDrug.html', context)
 
 def lookupDrugPageView(request) :
+   data = Drug.objects.all()
+
+   context = {
+      "key" : data,
+   }
+
    print("Now looking at drug page")
    drugname = request.GET['drugname'].upper()
    isopioid = None
@@ -77,6 +83,9 @@ def lookupDrugPageView(request) :
    elif (drugname == '') & (isopioid != '') :
       sQuery += " isopioid = '" + isopioid + "'" 
 
+   elif (drugname == '') & (isopioid == '') :
+      return render(request, 'drugapp/searchDrug.html', context)
+
    sQuery += ' ORDER BY drugid, drugname, isopioid'
 
    print(sQuery)
@@ -87,5 +96,52 @@ def lookupDrugPageView(request) :
    }
    return render(request, 'drugapp/searchDrug.html', context)
 
+def lookupPrescPageView(request) :
+   print("Now looking at presc page")
+   fname = request.GET['fname'].upper()
+   lname = request.GET['lname'].upper()
+   credentials = request.GET['credentials'].upper().replace(" ", "")
+   state = request.GET['state']
+   specialty = request.GET['specialty']
+
+   # print("this is inside the isopiod variable" + "'" + isopioid + "'")
+   sQuery = 'SELECT npi, fname, lname, credentials, stateabbrev, specialty FROM pd_prescriber, pd_statedata WHERE pd_prescriber.state = pd_statedata.stateabbrev'
+
+   if fname != '' :
+      sQuery += " AND first_name = '" + fname + "'"
+      
+   if lname != '' :
+      sQuery += " AND last_name = '" + lname + "'"
+
+   if credentials != '' :
+      sQuery += " AND credentials = '" + credentials + "'"      
+
+   if state != '' :
+      sQuery += " AND stateabbrev = '" + state + "'"     
+
+   if specialty != '' :
+      sQuery += " AND specialty = '" + specialty + "'"       
+
+   sQuery += ' ORDER BY npi, fname, lname, credentials, stateabbrev, specialty'
+
+   print(sQuery)
+   data = Prescriber.objects.raw(sQuery)
+
+   context = {
+      "key" : data,
+   }   
+   return render(request, 'drugapp/searchPresc.html', context)
+
 def searchPrePageView(request) :
-   return render(request, 'drugapp/searchPre.html') 
+   sQuery = "WITH CTE AS (SELECT npi, specialty, ROW_NUMBER() OVER (PARTITION BY specialty ORDER BY npi DESC) AS RowNumber FROM pd_prescriber) SELECT npi, specialty FROM CTE WHERE RowNumber = 1"
+   #Professor Hilton, this was brought to you by late night Jake LeBaron and his random stroke of mad genuis. Consider this his TA application.
+   specs = Prescriber.objects.raw(sQuery)
+
+   state = State.objects.all()
+
+   context = {
+      "state" : state,
+      "our_specialties" : specs
+   }   
+
+   return render(request, 'drugapp/searchPre.html', context) 

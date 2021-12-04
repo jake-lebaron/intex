@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import addPageView, dashboardPageView, detailsDrugPageView, editPageView, indexPageView, lookupDrugPageView
+from .views import addPageView, dashboardPageView, detailsDrugPageView, editPageView, indexPageView, lookupDrugPageView, lookupPrescPageView
 from .views import managePageView, aboutPageView, analysesPageView, detailsPrePageView, searchDrugPageView, searchPrePageView
  
 urlpatterns = [
@@ -14,5 +14,6 @@ urlpatterns = [
    path("searchdrug/", searchDrugPageView, name="drugsearch"),
    path("searchpre/", searchPrePageView, name="presearch"),
    path("lookupdrug/", lookupDrugPageView, name="lookupdrug"),
+   path("lookuppresc/", lookupPrescPageView, name="lookuppresc"),
    path("", indexPageView, name="index"),
 ]

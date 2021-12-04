@@ -1,16 +1,44 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div>
-  <p>This is the search prescribers page</p>
+  <p>This is the search prescriber page</p>
   <p>Prescriber (by name, gender, credentials, location, specialty)</p>
-  <div>
-    <p>This is the search drug page</p>
-  </div>
+  <div></div>
+  <form name="form" method="get" action="{% url 'lookuppresc' %}">
+    <label for="fname">Enter the first name:</label>
+    <input type="text" name="fname" id="fname" />
+    <br /><br />
+    <label for="lname">Enter the last name:</label>
+    <input type="text" name="lname" id="lname" />
+    <br /><br />
+    <label for="credentials">Enter the credentials:</label>
+    <input type="text" name="credentials" id="credentials" />
+    <br /><br />
+
+    <select name="state">
+      {% for state in state %}
+      <option value="{{state.stateabbrev }}">{{ state.state}}</option>
+      {% endfor %}
+    </select>
+    <br /><br />
+
+    <select name="specialty">
+      {% for x in our_specialties %}
+      <option value="{{x.specialty }}">{{ x.specialty}}</option>
+      {% endfor %}
+    </select>
+
+    <br /><br />
+    <label for="gender">Gender:</label><br />
+    <input type="radio" id="gendermale" name="gender" value="M" />
+    <label for="gendermale">Male</label><br />
+    <input type="radio" id="genderfemale" name="gender" value="F" />
+    <label for="genderfemale">Female</label><br />
+
+    <br /><br />
     <button type="submit">Search</button>
-    <a href="{% url 'predetails' %}"
-      ><button type="button" class="btn btn-primary">View Details</button></a
-    >
   </form>
   <a href="{% url 'drugdetails' %}"
-  ><button type="button" class="btn btn-primary">View Details</button></a>
+    ><button type="button" class="btn btn-primary">View Details</button></a
+  >
 </div>
 {% endblock %}
