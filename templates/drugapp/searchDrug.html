@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div>
+  <h1>This is the search drug page</h1>
   <form name="form" method="get" action="{% url 'lookupdrug' %}">
     <label for="drugname">Enter the drug name:</label>
     <input type="text" name="drugname" id="drugname" autofocus />
@@ -13,18 +14,17 @@
     <input type="radio" id="isopioidfalse" name="isopioid" value="False" />
     <label for="isopioidfalse">Nonopioid</label><br />
 
-    <br /><br />
+    <br />
     <button type="submit">Search</button>
   </form>
+  <br />
 
   <div>
     {% for drug in key %}
-    <p>{{drug.drugname}}</p>
+    <a href="{% url 'drugdetails' drugid=drug.drugid %}"
+      ><button type="button" class="btn btn-primary">View Details</button></a
+    >{{drug.drugname}}<br />
     {% endfor %}
   </div>
-
-  <a href="{% url 'drugdetails' %}"
-    ><button type="button" class="btn btn-primary">View Details</button></a
-  >
 </div>
 {% endblock %}

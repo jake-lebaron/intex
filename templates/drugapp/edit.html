@@ -24,7 +24,7 @@
 
     <label for="state">Location:</label><br />
     <select name="state">
-      <option value="{{record.stateabbrev}}">
+      <option value="{{record.state}}">
         Current Location: {{record.state}}
       </option>
       {% for state in state %}
@@ -35,7 +35,9 @@
 
     <label for="specialty">Specialty:</label><br />
     <select name="specialty">
-      <option value="">Current Specialty: {{record.specialty}}</option>
+      <option value="{{record.specialty}}">
+        Current Specialty: {{record.specialty}}
+      </option>
       {% for x in our_specialties %}
       <option value="{{x.specialty }}">{{ x.specialty}}</option>
       {% endfor %}
@@ -68,9 +70,11 @@
     />
     <label for="TRUE">Yes</label><br />
     <input type="radio" id="FALSE" name="isopioidprescriber" value="FALSE" />
+
     <label for="FALSE">No</label><br />
     {% else %}
-    <input type="radio" id="TRUE" name="isopioidprescriber" value="FALSE" />
+    <input type="radio" id="TRUE" name="isopioidprescriber" value="TRUE" />
+
     <label for="TRUE">Yes</label><br />
     <input
       type="radio"
@@ -79,8 +83,18 @@
       value="FALSE"
       checked
     />
+
     <label for="FALSE">No</label><br />
     {% endif %}
+    <br /><br />
+
+    <label for="totalprescriptions">Quantity of Drug Prescriptions:</label>
+    <input
+      type="text"
+      name="totalprescriptions"
+      id="totalprescriptions"
+      value="{{record.totalprescriptions}}"
+    />
     <br /><br />
 
     <button type="submit">Update</button>

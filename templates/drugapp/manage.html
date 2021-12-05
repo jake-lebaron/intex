@@ -1,10 +1,7 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
 <div>
   <p>This is the manage prescribers page</p>
-  <p>
-    Buttons here will go with all prescribers displayed and "edit" and "delete"
-    buttons will be associated with each prescriber
-  </p>
+
   <a href="{% url 'add' %}"
     ><button type="button" class="btn btn-primary">Add Prescriber</button></a
   >
@@ -16,13 +13,10 @@
       <a href="{% url 'edit' npi=presc.npi%}"
         ><button type="button" class="btn btn-primary">Edit</button></a
       >
-      {% comment %}
-      <a
-        class="btn btn-primary"
-        href="{% url 'addCustomerDestination' cust_id=customer.id %}"
-        >Add Destination</a
+      {{ presc.namedesc }}
+      <a href="{% url 'deletePresc' npi=presc.npi%}"
+        ><button type="button" class="btn btn-primary">Delete</button></a
       >
-      {% endcomment %} {{ presc.fullname }}
     </p>
     {% endfor %}
   </div>

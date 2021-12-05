@@ -22,8 +22,11 @@ class Drug(models.Model):
         db_table = "pd_drugs"
 
     def __str__(self):
-        return (self.drugname)
+        return (self.drugfull)
 
+    @property
+    def drugfull(self):
+        return '%s: Opiate(%s)' % (self.drugname, self.isopioid)
 class Prescriber(models.Model):
     npi = models.IntegerField(primary_key=True, unique=True)
     fname = models.CharField(max_length=11, unique=False)
@@ -293,7 +296,15 @@ class Prescriber(models.Model):
 
     @property
     def fullname(self):
+        return '%s %s, %s' % (self.fname, self.lname, self.credentials)
+
+    @property
+    def searchname(self):
         return '%s %s, %s, Opioid Prescriber: %s (Gender (%s)): %s, %s' % (self.fname, self.lname, self.credentials, self.isopioidprescriber, self.gender, self.specialty, self.state)
+
+    @property
+    def namedesc(self):
+        return '%s %s, %s, Opioid Prescriber: %s (Gender (%s)): %s, %s ------------------- Total Prescriptions: %i' % (self.fname, self.lname, self.credentials, self.isopioidprescriber, self.gender, self.specialty, self.state, self.totalprescriptions)
 
 class Triple(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)

@@ -51,20 +51,18 @@
       name="isopioidpresc"
       value="FALSE"
     />
-    <label for="genderfisopioidprescfalseemale">False</label><br />
+    <label for="isopioidprescfalse">False</label><br />
 
-    <br /><br />
+    <br />
     <button type="submit">Search</button>
   </form>
-
+  <br />
   <div>
     {% for prescriber in key %}
-    <p>{{prescriber.fullname}}</p>
+    <a href="{% url 'predetails' npi=prescriber.npi %}"
+      ><button type="button" class="btn btn-primary">View Details</button></a
+    >{{prescriber.searchname}}<br />
     {% endfor %}
   </div>
-
-  <a href="{% url 'drugdetails' %}"
-    ><button type="button" class="btn btn-primary">View Details</button></a
-  >
 </div>
 {% endblock %}
